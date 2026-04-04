@@ -1,0 +1,30 @@
+{
+  "grammars": [
+    {
+      "name": "quack",
+      "camelcase": "Quack",
+      "scope": "source.quack",
+      "path": ".",
+      "file-types": [
+        "q"
+      ],
+      "highlights": "queries/highlights.scm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for the Quack programming language",
+    "links": {
+      "repository": "https://github.com/quacklang/tree-sitter-quack"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

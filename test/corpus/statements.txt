@@ -1,0 +1,83 @@
+==================
+Let binding
+==================
+
+func main() {
+    let x = 42
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (integer_literal)))))
+
+==================
+Let with type annotation
+==================
+
+func main() {
+    let x: Int = 42
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (typed_binding
+          name: (identifier)
+          type: (type_identifier))
+        value: (integer_literal)))))
+
+==================
+Var binding
+==================
+
+func main() {
+    var count = 0
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (var_statement
+        name: (identifier)
+        value: (integer_literal)))))
+
+==================
+Var with type annotation
+==================
+
+func main() {
+    var items: Vec[String] = Vec.new()
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (var_statement
+        name: (identifier)
+        type: (generic_type
+          name: (type_identifier)
+          (type_identifier))
+        value: (method_call_expression
+          object: (type_identifier)
+          method: (identifier)
+          arguments: (argument_list))))))

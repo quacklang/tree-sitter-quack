@@ -1,0 +1,364 @@
+==================
+Package declaration
+==================
+
+package myapp
+
+---
+
+(source_file
+  (package_declaration
+    (identifier)))
+
+==================
+Use declaration
+==================
+
+use std.io
+
+---
+
+(source_file
+  (use_declaration
+    (module_path
+      (identifier)
+      (identifier))))
+
+==================
+Use with alias
+==================
+
+use std.collections as col
+
+---
+
+(source_file
+  (use_declaration
+    (module_path
+      (identifier)
+      (identifier))
+    alias: (identifier)))
+
+==================
+Simple function
+==================
+
+func main() {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block)))
+
+==================
+Function with parameters and return type
+==================
+
+func add(a: Int, b: Int) -> Int {
+    return a
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier))
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    return_type: (type_identifier)
+    body: (block
+      (expression_statement
+        (return_expression))
+      (expression_statement
+        (identifier)))))
+
+==================
+Public function with union return
+==================
+
+public func get(id: String) -> User | None {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    return_type: (union_type
+      (type_identifier)
+      (type_identifier))
+    body: (block)))
+
+==================
+Function with capability parameters
+==================
+
+func update(mut parser: Parser) {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    body: (block)))
+
+==================
+Simple struct
+==================
+
+struct Point {
+    x: Int,
+    y: Int,
+}
+
+---
+
+(source_file
+  (struct_declaration
+    name: (type_identifier)
+    (field_declaration
+      name: (identifier)
+      type: (type_identifier))
+    (field_declaration
+      name: (identifier)
+      type: (type_identifier))))
+
+==================
+Struct with generic field
+==================
+
+struct Entry {
+    key: String,
+    value: Value,
+}
+
+---
+
+(source_file
+  (struct_declaration
+    name: (type_identifier)
+    (field_declaration
+      name: (identifier)
+      type: (type_identifier))
+    (field_declaration
+      name: (identifier)
+      type: (type_identifier))))
+
+==================
+Simple enum
+==================
+
+enum Color {
+    Red,
+    Green,
+    Blue,
+}
+
+---
+
+(source_file
+  (enum_declaration
+    name: (type_identifier)
+    (enum_variant
+      name: (type_identifier))
+    (enum_variant
+      name: (type_identifier))
+    (enum_variant
+      name: (type_identifier))))
+
+==================
+Enum with payloads
+==================
+
+enum Value {
+    Null,
+    Bool(Bool),
+    Number(f64),
+    Str(String),
+}
+
+---
+
+(source_file
+  (enum_declaration
+    name: (type_identifier)
+    (enum_variant
+      name: (type_identifier))
+    (enum_variant
+      name: (type_identifier)
+      (type_identifier))
+    (enum_variant
+      name: (type_identifier)
+      (type_identifier))
+    (enum_variant
+      name: (type_identifier)
+      (type_identifier))))
+
+==================
+Enum implementing Error
+==================
+
+enum ParseError: Error {
+    UnexpectedChar(Int, u8),
+    UnexpectedEof,
+}
+
+---
+
+(source_file
+  (enum_declaration
+    name: (type_identifier)
+    interface: (type_identifier)
+    (enum_variant
+      name: (type_identifier)
+      (type_identifier)
+      (type_identifier))
+    (enum_variant
+      name: (type_identifier))))
+
+==================
+Interface declaration
+==================
+
+interface Serializable {
+    func serialize(self) -> String
+}
+
+---
+
+(source_file
+  (interface_declaration
+    name: (type_identifier)
+    (interface_method
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          (self_parameter)))
+      return_type: (type_identifier))))
+
+==================
+On block with methods
+==================
+
+on Parser {
+    func advance(mut self) {
+    }
+}
+
+---
+
+(source_file
+  (on_declaration
+    type: (type_identifier)
+    (method_declaration
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          (self_parameter)))
+      body: (block))))
+
+==================
+On block implementing interface
+==================
+
+on Point implement Display {
+    func display(self) -> String {
+    }
+}
+
+---
+
+(source_file
+  (on_declaration
+    type: (type_identifier)
+    interface: (type_identifier)
+    (method_declaration
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          (self_parameter)))
+      return_type: (type_identifier)
+      body: (block))))
+
+==================
+Extern block
+==================
+
+extern "C" {
+    func sqlite3_open(filename: *const u8, db: *mut *mut RawDb) -> i32
+    func sqlite3_close(db: *mut RawDb) -> i32
+}
+
+---
+
+(source_file
+  (extern_block
+    abi: (string_literal
+      (string_content))
+    (extern_function
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          name: (identifier)
+          type: (pointer_type
+            (type_identifier)))
+        (parameter
+          name: (identifier)
+          type: (pointer_type
+            (pointer_type
+              (type_identifier)))))
+      return_type: (type_identifier))
+    (extern_function
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          name: (identifier)
+          type: (pointer_type
+            (type_identifier))))
+      return_type: (type_identifier))))
+
+==================
+Test declaration
+==================
+
+test "addition works" {
+}
+
+---
+
+(source_file
+  (test_declaration
+    name: (string_literal
+      (string_content))
+    body: (block)))
+
+==================
+Top-level let
+==================
+
+let SQLITE_OK = 0
+
+---
+
+(source_file
+  (top_level_let
+    name: (type_identifier)
+    value: (integer_literal)))

@@ -1,0 +1,93 @@
+==================
+Parallel expression
+==================
+
+func main() {
+    parallel(handle) {
+        handle.spawn {
+            print("task")
+        }
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (parallel_expression
+          handle: (identifier)
+          body: (block
+            (expression_statement
+              (field_expression
+                object: (identifier)
+                field: (identifier)))
+            (expression_statement
+              (block
+                (expression_statement
+                  (call_expression
+                    function: (identifier)
+                    arguments: (argument_list
+                      (argument
+                        (string_literal
+                          (string_content))))))))))))))
+
+==================
+Detach expression
+==================
+
+func main() {
+    detach {
+        print("background")
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (detach_expression
+          body: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (string_literal
+                      (string_content))))))))))))
+
+==================
+Unsafe expression
+==================
+
+func main() {
+    unsafe {
+        sqlite3_close(self.raw)
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (unsafe_expression
+          body: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (field_expression
+                      object: (identifier)
+                      field: (identifier))))))))))))

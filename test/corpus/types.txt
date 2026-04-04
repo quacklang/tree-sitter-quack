@@ -1,0 +1,145 @@
+==================
+Simple type
+==================
+
+func id(x: String) -> String {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    return_type: (type_identifier)
+    body: (block)))
+
+==================
+Generic type
+==================
+
+func first(items: Vec[Int]) -> Int {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (generic_type
+          name: (type_identifier)
+          (type_identifier))))
+    return_type: (type_identifier)
+    body: (block)))
+
+==================
+Multi-param generic
+==================
+
+func get(map: HashMap[String, Int]) -> Int {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (generic_type
+          name: (type_identifier)
+          (type_identifier)
+          (type_identifier))))
+    return_type: (type_identifier)
+    body: (block)))
+
+==================
+Union type
+==================
+
+func find(id: String) -> User | None {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    return_type: (union_type
+      (type_identifier)
+      (type_identifier))
+    body: (block)))
+
+==================
+Multi-union type
+==================
+
+func parse() -> Value | ParseError | IOError {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (union_type
+      (union_type
+        (type_identifier)
+        (type_identifier))
+      (type_identifier))
+    body: (block)))
+
+==================
+Pointer types
+==================
+
+extern "C" {
+    func open(path: *const u8, db: *mut RawDb) -> i32
+}
+
+---
+
+(source_file
+  (extern_block
+    abi: (string_literal
+      (string_content))
+    (extern_function
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          name: (identifier)
+          type: (pointer_type
+            (type_identifier)))
+        (parameter
+          name: (identifier)
+          type: (pointer_type
+            (type_identifier))))
+      return_type: (type_identifier))))
+
+==================
+Unit type
+==================
+
+func noop() -> () {
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (unit_type)
+    body: (block)))

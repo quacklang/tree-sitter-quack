@@ -1,0 +1,325 @@
+==================
+If expression
+==================
+
+func main() {
+    if x > 0 {
+        print("positive")
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (if_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (string_literal
+                      (string_content))))))))))))
+
+==================
+If-else expression
+==================
+
+func main() {
+    if x > 0 {
+        print("positive")
+    } else {
+        print("non-positive")
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (if_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (string_literal
+                      (string_content)))))))
+          alternative: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (string_literal
+                      (string_content))))))))))))
+
+==================
+If-else if chain
+==================
+
+func main() {
+    if x > 0 {
+    } else if x < 0 {
+    } else {
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (if_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          consequence: (block)
+          alternative: (if_expression
+            condition: (binary_expression
+              left: (identifier)
+              right: (integer_literal))
+            consequence: (block)
+            alternative: (block)))))))
+
+==================
+While loop
+==================
+
+func main() {
+    while x < 10 {
+        x += 1
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (while_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          body: (block
+            (expression_statement
+              (assignment_expression
+                left: (identifier)
+                right: (integer_literal)))))))))
+
+==================
+For loop
+==================
+
+func main() {
+    for item in items {
+        print(item)
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (for_expression
+          pattern: (identifier)
+          iterable: (identifier)
+          body: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (identifier)))))))))))
+
+==================
+Match expression
+==================
+
+func main() {
+    match result {
+        v: Value => println("ok"),
+        e: ParseError => println("error"),
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (match_expression
+          value: (identifier)
+          (match_arm
+            pattern: (typed_binding
+              name: (identifier)
+              type: (type_identifier))
+            value: (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (string_literal
+                    (string_content))))))
+          (match_arm
+            pattern: (typed_binding
+              name: (identifier)
+              type: (type_identifier))
+            value: (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (string_literal
+                    (string_content)))))))))))
+
+==================
+Match with enum patterns
+==================
+
+func main() {
+    match color {
+        Color.Red => print("red"),
+        Color.Green => print("green"),
+        _ => print("other"),
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (match_expression
+          value: (identifier)
+          (match_arm
+            pattern: (enum_pattern
+              type: (type_identifier)
+              variant: (type_identifier))
+            value: (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (string_literal
+                    (string_content))))))
+          (match_arm
+            pattern: (enum_pattern
+              type: (type_identifier)
+              variant: (type_identifier))
+            value: (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (string_literal
+                    (string_content))))))
+          (match_arm
+            pattern: (wildcard_pattern)
+            value: (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (string_literal
+                    (string_content)))))))))))
+
+==================
+Return and error expressions
+==================
+
+func check(x: Int) -> Int | ParseError {
+    if x < 0 {
+        error ParseError.UnexpectedEof
+    }
+    return x
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    return_type: (union_type
+      (type_identifier)
+      (type_identifier))
+    body: (block
+      (expression_statement
+        (if_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          consequence: (block
+            (expression_statement
+              (error_expression
+                (field_expression
+                  object: (type_identifier)
+                  field: (type_identifier)))))))
+      (expression_statement
+        (return_expression))
+      (expression_statement
+        (identifier)))))
+
+==================
+Break and continue
+==================
+
+func main() {
+    while true {
+        if done {
+            break
+        }
+        continue
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (while_expression
+          condition: (boolean_literal)
+          body: (block
+            (expression_statement
+              (if_expression
+                condition: (identifier)
+                consequence: (block
+                  (expression_statement
+                    (break_expression)))))
+            (expression_statement
+              (continue_expression))))))))

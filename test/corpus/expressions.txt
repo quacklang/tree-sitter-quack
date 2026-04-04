@@ -1,0 +1,371 @@
+==================
+Integer literals
+==================
+
+func main() {
+    let x = 42
+    let y = 1_000_000
+    let hex = 0xFF
+    let bin = 0b1010
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (integer_literal))
+      (let_statement
+        pattern: (identifier)
+        value: (integer_literal))
+      (let_statement
+        pattern: (identifier)
+        value: (integer_literal))
+      (let_statement
+        pattern: (identifier)
+        value: (integer_literal)))))
+
+==================
+Float literals
+==================
+
+func main() {
+    let x = 3.14
+    let y = 2.0e10
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (float_literal))
+      (let_statement
+        pattern: (identifier)
+        value: (float_literal)))))
+
+==================
+String literals
+==================
+
+func main() {
+    let s = "hello world"
+    let e = "tab\there"
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (string_literal
+          (string_content)))
+      (let_statement
+        pattern: (identifier)
+        value: (string_literal
+          (string_content)
+          (escape_sequence)
+          (string_content))))))
+
+==================
+Boolean and none literals
+==================
+
+func main() {
+    let a = true
+    let b = false
+    let c = none
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (boolean_literal))
+      (let_statement
+        pattern: (identifier)
+        value: (boolean_literal))
+      (let_statement
+        pattern: (identifier)
+        value: (none_literal)))))
+
+==================
+Binary expressions
+==================
+
+func main() {
+    let x = a + b * c
+    let y = a == b and c != d
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (binary_expression
+          left: (identifier)
+          right: (binary_expression
+            left: (identifier)
+            right: (identifier))))
+      (let_statement
+        pattern: (identifier)
+        value: (binary_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (identifier))
+          right: (binary_expression
+            left: (identifier)
+            right: (identifier)))))))
+
+==================
+Unary expression
+==================
+
+func main() {
+    let x = not done
+    let y = -1
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (unary_expression
+          operand: (identifier)))
+      (let_statement
+        pattern: (identifier)
+        value: (unary_expression
+          operand: (integer_literal))))))
+
+==================
+Function call
+==================
+
+func main() {
+    print("hello")
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (call_expression
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (string_literal
+                (string_content)))))))))
+
+==================
+Method call
+==================
+
+func main() {
+    let n = s.len()
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (method_call_expression
+          object: (identifier)
+          method: (identifier)
+          arguments: (argument_list))))))
+
+==================
+Call with capability argument
+==================
+
+func main() {
+    advance(mut parser)
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (call_expression
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (identifier))))))))
+
+==================
+Field access
+==================
+
+func main() {
+    let x = parser.pos
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (field_expression
+          object: (identifier)
+          field: (identifier))))))
+
+==================
+Error propagation
+==================
+
+func main() {
+    let v = parse_value(mut parser)?
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (error_propagation
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (identifier)))))))))
+
+==================
+Struct literal
+==================
+
+func main() {
+    let p = Point { x: 1, y: 2 }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (struct_literal
+          type: (type_identifier)
+          (struct_field_init
+            name: (identifier)
+            value: (integer_literal))
+          (struct_field_init
+            name: (identifier)
+            value: (integer_literal)))))))
+
+==================
+Array literal
+==================
+
+func main() {
+    let xs = [1, 2, 3]
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (array_literal
+          (integer_literal)
+          (integer_literal)
+          (integer_literal))))))
+
+==================
+Assignment
+==================
+
+func main() {
+    x = 1
+    x += 2
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (integer_literal)))
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (integer_literal))))))
+
+==================
+Type cast
+==================
+
+func main() {
+    let x = value as i32
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (type_cast
+          value: (identifier)
+          type: (type_identifier))))))

@@ -1,0 +1,147 @@
+==================
+Fmt expression
+==================
+
+func main() {
+    let s = fmt "hello {name}"
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (fmt_expression
+          (fmt_string
+            (fmt_content)
+            (fmt_interpolation
+              (identifier))))))))
+
+==================
+Closure expression
+==================
+
+func main() {
+    let f = func(x: Int) -> Int {
+        return x
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (closure_expression
+          parameters: (parameter_list
+            (parameter
+              name: (identifier)
+              type: (type_identifier)))
+          return_type: (type_identifier)
+          body: (block
+            (expression_statement
+              (return_expression))
+            (expression_statement
+              (identifier))))))))
+
+==================
+Copy expression
+==================
+
+func main() {
+    let b = copy a
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (copy_expression
+          (identifier))))))
+
+==================
+Defer expression
+==================
+
+func main() {
+    defer close(fd)
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (defer_expression
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (identifier)))))))))
+
+==================
+Is expression
+==================
+
+func main() {
+    if value is 93 {
+        print("match")
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (if_expression
+          condition: (is_expression
+            value: (identifier)
+            pattern: (integer_literal))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (string_literal
+                      (string_content))))))))))))
+
+==================
+String with braces
+==================
+
+func main() {
+    let s = "JSON: {key}"
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (string_literal
+          (string_content))))))
