@@ -120,4 +120,4 @@ If you develop on WSL but run Zed on Windows, the "Install Dev Extension" featur
 
 ## License
 
-MIT
+Apache-2.0

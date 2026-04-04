@@ -2,7 +2,7 @@
   "name": "tree-sitter-quack",
   "version": "0.1.0",
   "description": "Tree-sitter grammar for the Quack programming language",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "bindings/node",
   "keywords": [
     "tree-sitter",
