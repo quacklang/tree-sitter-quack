@@ -92,31 +92,17 @@ Run `tree-sitter test -u` to auto-update expected output after grammar changes.
 
 If you develop on WSL but run Zed on Windows, the "Install Dev Extension" feature can't read WSL paths directly. Use this workflow:
 
-1. **Develop** in the WSL monorepo as normal.
+1. **Clone both repos** on the Windows side:
 
-2. **Copy to a Windows-native path** accessible from both sides:
-
-   ```sh
-   # From WSL — adjust the Windows username
-   rsync -av --delete \
-     extensions/tree-sitter-quack/ \
-     /mnt/c/Users/<you>/Code/tree-sitter-quack/
-   rsync -av --delete \
-     extensions/zed/ \
-     /mnt/c/Users/<you>/Code/quack-zed/
+   ```powershell
+   cd C:\Users\<you>\Code
+   git clone https://github.com/quacklang/tree-sitter-quack.git
+   git clone https://github.com/quacklang/zed-quack.git
    ```
 
-3. **Update the Zed extension's `extension.toml`** on the Windows copy to point at the local grammar:
+2. **In Zed:** Command palette > "zed: install dev extension" > select `C:\Users\<you>\Code\zed-quack`.
 
-   ```toml
-   [grammars.quack]
-   repository = "file:///C:/Users/<you>/Code/tree-sitter-quack"
-   rev = "HEAD"
-   ```
-
-4. **In Zed:** Command palette > "zed: install dev extension" > select `C:\Users\<you>\Code\quack-zed`.
-
-5. **After changes:** re-copy (step 2) and re-run "Install Dev Extension" (step 4). There is no hot-reload.
+3. **After changes:** push from WSL, pull on the Windows clones, and re-run "Install Dev Extension". There is no hot-reload.
 
 ## License
 
