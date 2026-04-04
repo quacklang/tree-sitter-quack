@@ -226,7 +226,8 @@ enum ParseError: Error {
 (source_file
   (enum_declaration
     name: (type_identifier)
-    interface: (type_identifier)
+    interfaces: (interface_list
+      (type_identifier))
     (enum_variant
       name: (type_identifier)
       (type_identifier)

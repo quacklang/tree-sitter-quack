@@ -114,12 +114,13 @@ module.exports = grammar({
 
     generic_param: $ => seq(
       field('name', $.type_identifier),
-      optional(seq(':', $._type_bound)),
+      optional(seq(':', field('bound', $.type_identifier))),
     ),
 
-    _type_bound: $ => seq(
+    // Interface bundle list: `Display and Debug and Serialize`
+    interface_list: $ => seq(
       $.type_identifier,
-      repeat(seq('+', $.type_identifier)),
+      repeat(seq('and', $.type_identifier)),
     ),
 
     parameter_list: $ => seq(
@@ -170,7 +171,7 @@ module.exports = grammar({
       'enum',
       field('name', $.type_identifier),
       optional($.generic_params),
-      optional(seq(':', field('interface', $.type_identifier))),
+      optional(seq(':', field('interfaces', $.interface_list))),
       '{',
       repeat(seq($.enum_variant, optional(','))),
       '}',
@@ -201,7 +202,7 @@ module.exports = grammar({
         'interface',
         field('name', $.type_identifier),
         '=',
-        $._type_bound,
+        $.interface_list,
       ),
     ),
 

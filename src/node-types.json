@@ -692,12 +692,12 @@
     "type": "enum_declaration",
     "named": true,
     "fields": {
-      "interface": {
+      "interfaces": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "type_identifier",
+            "type": "interface_list",
             "named": true
           }
         ]
@@ -1121,6 +1121,16 @@
     "type": "generic_param",
     "named": true,
     "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1131,16 +1141,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "type_identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1274,9 +1274,24 @@
           "named": true
         },
         {
-          "type": "interface_method",
+          "type": "interface_list",
           "named": true
         },
+        {
+          "type": "interface_method",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
           "type": "type_identifier",
           "named": true
