@@ -40,6 +40,10 @@
         "named": true
       },
       {
+        "type": "type_alias_declaration",
+        "named": true
+      },
+      {
         "type": "use_declaration",
         "named": true
       }
@@ -283,6 +287,10 @@
       },
       {
         "type": "pointer_type",
+        "named": true
+      },
+      {
+        "type": "self_type",
         "named": true
       },
       {
@@ -958,6 +966,11 @@
     }
   },
   {
+    "type": "fmt_brace_escape",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "fmt_expression",
     "named": true,
     "fields": {},
@@ -997,6 +1010,10 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "fmt_brace_escape",
           "named": true
         },
         {
@@ -2074,6 +2091,42 @@
     }
   },
   {
+    "type": "type_alias_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "generic_params",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_arguments",
     "named": true,
     "fields": {},
@@ -2697,6 +2750,10 @@
     "named": true
   },
   {
+    "type": "self_type",
+    "named": true
+  },
+  {
     "type": "shared",
     "named": false
   },
@@ -2722,6 +2779,10 @@
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "type",
     "named": false
   },
   {
@@ -2781,11 +2842,19 @@
     "named": false
   },
   {
+    "type": "{{",
+    "named": false
+  },
+  {
     "type": "|",
     "named": false
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "}}",
     "named": false
   },
   {

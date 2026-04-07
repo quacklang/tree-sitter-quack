@@ -4,6 +4,7 @@
   "struct"
   "enum"
   "interface"
+  "type"
   "on"
   "implement"
   "let"
@@ -85,6 +86,9 @@
   "{" @punctuation.special
   "}" @punctuation.special)
 
+; Format string brace escapes ({{ and }})
+(fmt_brace_escape) @string.escape
+
 ; Comments
 (line_comment) @comment
 
@@ -122,6 +126,13 @@
 ; Interface declarations
 (interface_declaration
   name: (type_identifier) @type.definition)
+
+; Type alias declarations
+(type_alias_declaration
+  name: (type_identifier) @type.definition)
+
+; Self type keyword
+(self_type) @type.builtin
 
 ; Parameters
 (parameter

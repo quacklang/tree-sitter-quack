@@ -352,6 +352,52 @@ test "addition works" {
     body: (block)))
 
 ==================
+Type alias
+==================
+
+type UserId = i64
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (type_identifier)
+    target: (type_identifier)))
+
+==================
+Generic type alias
+==================
+
+type Result[T] = T | AppError
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (type_identifier)
+    (generic_params
+      (generic_param
+        name: (type_identifier)))
+    target: (union_type
+      (type_identifier)
+      (type_identifier))))
+
+==================
+Public type alias
+==================
+
+public type Handler = func(Request) -> Response
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (type_identifier)
+    target: (function_type
+      (type_identifier)
+      (type_identifier))))
+
+==================
 Top-level let
 ==================
 

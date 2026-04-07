@@ -78,6 +78,7 @@ module.exports = grammar({
       $.on_declaration,
       $.extern_block,
       $.test_declaration,
+      $.type_alias_declaration,
       $.top_level_let,
     ),
 
@@ -253,6 +254,15 @@ module.exports = grammar({
       'test',
       field('name', $.string_literal),
       field('body', $.block),
+    ),
+
+    type_alias_declaration: $ => seq(
+      optional($._visibility),
+      'type',
+      field('name', $.type_identifier),
+      optional($.generic_params),
+      '=',
+      field('target', $._type),
     ),
 
     top_level_let: $ => seq(
@@ -519,12 +529,15 @@ module.exports = grammar({
       repeat(choice(
         $.fmt_content,
         $.fmt_interpolation,
+        $.fmt_brace_escape,
         $.escape_sequence,
       )),
       '"',
     ),
 
     fmt_content: $ => /[^"\\{}\n]+/,
+
+    fmt_brace_escape: $ => choice('{{', '}}'),
 
     fmt_interpolation: $ => seq('{', $._expression, '}'),
 
@@ -589,6 +602,7 @@ module.exports = grammar({
 
     _type: $ => choice(
       $.type_identifier,
+      $.self_type,
       $.generic_type,
       $.union_type,
       $.function_type,
@@ -596,6 +610,8 @@ module.exports = grammar({
       $.pointer_type,
       $.shared_type,
     ),
+
+    self_type: $ => 'Self',
 
     type_identifier: $ => choice(
       /[A-Z][a-zA-Z0-9_]*/,

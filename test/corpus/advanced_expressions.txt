@@ -22,6 +22,33 @@ func main() {
               (identifier))))))))
 
 ==================
+Fmt brace escapes
+==================
+
+func main() {
+    let s = fmt "literal {{braces}} and {x}"
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (fmt_expression
+          (fmt_string
+            (fmt_content)
+            (fmt_brace_escape)
+            (fmt_content)
+            (fmt_brace_escape)
+            (fmt_content)
+            (fmt_interpolation
+              (identifier))))))))
+
+==================
 Closure expression
 ==================
 

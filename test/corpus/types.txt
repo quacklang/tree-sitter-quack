@@ -143,3 +143,26 @@ func noop() -> () {
     parameters: (parameter_list)
     return_type: (unit_type)
     body: (block)))
+
+==================
+Self type
+==================
+
+interface Eq {
+    func equals(self, other: Self) -> Bool
+}
+
+---
+
+(source_file
+  (interface_declaration
+    name: (type_identifier)
+    (interface_method
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          (self_parameter))
+        (parameter
+          name: (identifier)
+          type: (self_type)))
+      return_type: (type_identifier))))
