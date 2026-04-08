@@ -3555,6 +3555,10 @@
         {
           "type": "SYMBOL",
           "name": "shared_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "read_type"
         }
       ]
     },
@@ -3838,6 +3842,19 @@
         {
           "type": "STRING",
           "value": "shared"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type"
+        }
+      ]
+    },
+    "read_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "read"
         },
         {
           "type": "SYMBOL",
@@ -4244,7 +4261,7 @@
           },
           {
             "type": "STRING",
-            "value": "|"
+            "value": "or"
           },
           {
             "type": "SYMBOL",

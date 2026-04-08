@@ -609,6 +609,7 @@ module.exports = grammar({
       $.unit_type,
       $.pointer_type,
       $.shared_type,
+      $.read_type,
     ),
 
     self_type: $ => 'Self',
@@ -651,6 +652,8 @@ module.exports = grammar({
     ),
 
     shared_type: $ => seq('shared', $._type),
+
+    read_type: $ => seq('read', $._type),
 
     // =========================================================================
     // Patterns
@@ -712,7 +715,7 @@ module.exports = grammar({
       ')',
     ),
 
-    or_pattern: $ => prec.left(1, seq($._pattern, '|', $._pattern)),
+    or_pattern: $ => prec.left(1, seq($._pattern, 'or', $._pattern)),
 
     typed_binding: $ => seq(
       field('name', $.identifier),

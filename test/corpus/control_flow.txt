@@ -130,6 +130,73 @@ func main() {
                 right: (integer_literal)))))))))
 
 ==================
+While...is narrowing loop
+==================
+
+func main() {
+    while it.next() is val: i32 {
+        println(val)
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (while_expression
+          condition: (is_expression
+            value: (method_call_expression
+              object: (identifier)
+              method: (identifier)
+              arguments: (argument_list))
+            pattern: (typed_binding
+              name: (identifier)
+              type: (type_identifier)))
+          body: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (identifier)))))))))))
+
+==================
+If...is with typed binding
+==================
+
+func main() {
+    if x is val: String {
+        println(val)
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (if_expression
+          condition: (is_expression
+            value: (identifier)
+            pattern: (typed_binding
+              name: (identifier)
+              type: (type_identifier)))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (identifier)))))))))))
+
+==================
 For loop
 ==================
 
