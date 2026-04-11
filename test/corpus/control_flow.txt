@@ -155,7 +155,7 @@ func main() {
               arguments: (argument_list))
             pattern: (typed_binding
               name: (identifier)
-              type: (type_identifier)))
+              type: (primitive_type)))
           body: (block
             (expression_statement
               (call_expression

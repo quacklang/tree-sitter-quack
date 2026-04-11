@@ -368,4 +368,4 @@ func main() {
         pattern: (identifier)
         value: (type_cast
           value: (identifier)
-          type: (type_identifier))))))
+          type: (primitive_type))))))

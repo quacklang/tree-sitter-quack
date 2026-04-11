@@ -298,6 +298,10 @@
         "named": true
       },
       {
+        "type": "primitive_type",
+        "named": true
+      },
+      {
         "type": "read_type",
         "named": true
       },
@@ -1854,6 +1858,11 @@
     }
   },
   {
+    "type": "primitive_type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "read_type",
     "named": true,
     "fields": {},
@@ -1878,21 +1887,6 @@
       "types": [
         {
           "type": "_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "scoped_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "type_identifier",
           "named": true
         }
       ]
@@ -2032,9 +2026,15 @@
         "required": true,
         "types": [
           {
-            "type": "scoped_type",
+            "type": "type_identifier",
             "named": true
-          },
+          }
+        ]
+      },
+      "variant": {
+        "multiple": false,
+        "required": false,
+        "types": [
           {
             "type": "type_identifier",
             "named": true
@@ -2244,11 +2244,6 @@
         ]
       }
     }
-  },
-  {
-    "type": "type_identifier",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "typed_binding",
@@ -2875,6 +2870,10 @@
   {
     "type": "type",
     "named": false
+  },
+  {
+    "type": "type_identifier",
+    "named": true
   },
   {
     "type": "u128",

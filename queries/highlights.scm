@@ -150,6 +150,9 @@
 (type_alias_declaration
   name: (type_identifier) @type.definition)
 
+; Primitive types (i8, i32, f64, etc.)
+(primitive_type) @type.builtin
+
 ; Self type keyword
 (self_type) @type.builtin
 

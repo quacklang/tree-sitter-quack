@@ -46,14 +46,14 @@ module.exports = grammar({
   conflicts: $ => [
     // `func()` — parameter_list (closure) vs function_type
     [$.parameter_list, $.function_type],
-    // scoped type `Type.Variant` vs field expression on type identifier
-    [$._expression, $.scoped_type],
     // `let name: Type` — identifier could be pattern or start of typed_binding
     [$._pattern, $.typed_binding],
     // `expr.name[` — could be field access + index or method call with type args
     [$.method_call_expression, $.field_expression],
     // `expr[TypeId]` — type_identifier is both an expression and a type
     [$._expression, $._type],
+    // `Type.` — could be field_expression or start of struct literal type path
+    [$._expression, $._struct_type_path],
   ],
 
   rules: {
@@ -497,15 +497,16 @@ module.exports = grammar({
     )),
 
     struct_literal: $ => prec(PREC.POSTFIX, seq(
-      field('type', choice($.type_identifier, $.scoped_type)),
+      $._struct_type_path,
       '{',
       repeat(seq($.struct_field_init, optional(','))),
       '}',
     )),
 
-    scoped_type: $ => seq(
-      $.type_identifier,
-      repeat1(seq('.', $.type_identifier)),
+    // Type path for struct literals: `Name` or `Name.Variant`
+    _struct_type_path: $ => choice(
+      field('type', $.type_identifier),
+      seq(field('type', $.type_identifier), '.', field('variant', $.type_identifier)),
     ),
 
     struct_field_init: $ => choice(
@@ -619,6 +620,7 @@ module.exports = grammar({
     _type: $ => choice(
       $.type_identifier,
       $.self_type,
+      $.primitive_type,
       $.generic_type,
       $.union_type,
       $.function_type,
@@ -633,9 +635,9 @@ module.exports = grammar({
 
     self_type: $ => 'Self',
 
-    type_identifier: $ => choice(
-      /[A-Z][a-zA-Z0-9_]*/,
-      // Primitive types that start lowercase
+    type_identifier: $ => /[A-Z][a-zA-Z0-9_]*/,
+
+    primitive_type: $ => choice(
       'i8', 'i16', 'i32', 'i64', 'i128', 'isize',
       'u8', 'u16', 'u32', 'u64', 'u128', 'usize',
       'f32', 'f64',

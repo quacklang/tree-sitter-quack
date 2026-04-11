@@ -207,7 +207,7 @@ enum Value {
       (type_identifier))
     (enum_variant
       name: (type_identifier)
-      (type_identifier))
+      (primitive_type))
     (enum_variant
       name: (type_identifier)
       (type_identifier))))
@@ -231,7 +231,7 @@ enum ParseError: Error {
     (enum_variant
       name: (type_identifier)
       (type_identifier)
-      (type_identifier))
+      (primitive_type))
     (enum_variant
       name: (type_identifier))))
 
@@ -320,13 +320,13 @@ extern "C" {
         (parameter
           name: (identifier)
           type: (pointer_type
-            (type_identifier)))
+            (primitive_type)))
         (parameter
           name: (identifier)
           type: (pointer_type
             (pointer_type
               (type_identifier)))))
-      return_type: (type_identifier))
+      return_type: (primitive_type))
     (extern_function
       name: (identifier)
       parameters: (parameter_list
@@ -334,7 +334,7 @@ extern "C" {
           name: (identifier)
           type: (pointer_type
             (type_identifier))))
-      return_type: (type_identifier))))
+      return_type: (primitive_type))))
 
 ==================
 Test declaration
@@ -362,7 +362,7 @@ type UserId = i64
 (source_file
   (type_alias_declaration
     name: (type_identifier)
-    target: (type_identifier)))
+    target: (primitive_type)))
 
 ==================
 Generic type alias

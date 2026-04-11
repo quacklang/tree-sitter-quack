@@ -121,12 +121,12 @@ extern "C" {
         (parameter
           name: (identifier)
           type: (pointer_type
-            (type_identifier)))
+            (primitive_type)))
         (parameter
           name: (identifier)
           type: (pointer_type
             (type_identifier))))
-      return_type: (type_identifier))))
+      return_type: (primitive_type))))
 
 ==================
 Unit type
