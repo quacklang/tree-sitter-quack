@@ -343,6 +343,7 @@ module.exports = grammar({
       $.unsafe_expression,
       $.when_expression,
       $.assignment_expression,
+      $.otherwise_expression,
     ),
 
     parenthesized_expression: $ => seq('(', $._expression, ')'),
@@ -596,6 +597,21 @@ module.exports = grammar({
       field('right', $._expression),
     )),
 
+    otherwise_expression: $ => prec.left(PREC.POSTFIX, seq(
+      field('value', $._expression),
+      'otherwise',
+      field('action', $.otherwise_action),
+    )),
+
+    otherwise_action: $ => choice(
+      prec(PREC.POSTFIX + 1, seq('pass', 'up')),
+      prec(PREC.POSTFIX + 1, 'break'),
+      prec(PREC.POSTFIX + 1, 'continue'),
+      prec.left(PREC.POSTFIX + 1, seq('return', optional($._expression))),
+      prec.left(PREC.POSTFIX + 1, seq('error', $._expression)),
+      prec.left(PREC.POSTFIX, $._expression),
+    ),
+
     // =========================================================================
     // Types
     // =========================================================================
@@ -610,7 +626,10 @@ module.exports = grammar({
       $.pointer_type,
       $.shared_type,
       $.read_type,
+      $.infer_type,
     ),
+
+    infer_type: $ => '_',
 
     self_type: $ => 'Self',
 

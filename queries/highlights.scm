@@ -51,12 +51,31 @@
   "package"
 ] @keyword.modifier
 
+; Control flow keywords
+[
+  "otherwise"
+  "continue"
+] @keyword.control
+
+; Otherwise action keywords
+(otherwise_action
+  "pass" @keyword.control)
+(otherwise_action
+  "up" @keyword.control)
+(otherwise_action
+  "break" @keyword.control)
+(otherwise_action
+  "continue" @keyword.control)
+(otherwise_action
+  "return" @keyword.control)
+(otherwise_action
+  "error" @keyword.control)
+
 ; Concurrency keywords
 [
   "parallel"
   "detach"
   "when"
-  "otherwise"
   "from"
   "timeout"
 ] @keyword.control
@@ -133,6 +152,9 @@
 
 ; Self type keyword
 (self_type) @type.builtin
+
+; Infer type placeholder
+(infer_type) @type.builtin
 
 ; Parameters
 (parameter

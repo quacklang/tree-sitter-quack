@@ -145,6 +145,31 @@ func noop() -> () {
     body: (block)))
 
 ==================
+Infer type
+==================
+
+func main() {
+    let items: Vec[_] = get_items()
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (typed_binding
+          name: (identifier)
+          type: (generic_type
+            name: (type_identifier)
+            (infer_type)))
+        value: (call_expression
+          function: (identifier)
+          arguments: (argument_list))))))
+
+==================
 Self type
 ==================
 

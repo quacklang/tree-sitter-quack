@@ -154,6 +154,174 @@ func main() {
                       (string_content))))))))))))
 
 ==================
+Otherwise pass up
+==================
+
+func main() {
+    let val = try_parse(input) otherwise pass up
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (otherwise_expression
+          value: (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (identifier))))
+          action: (otherwise_action))))))
+
+==================
+Otherwise break
+==================
+
+func main() {
+    while true {
+        let item = queue.pop() otherwise break
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (while_expression
+          condition: (boolean_literal)
+          body: (block
+            (let_statement
+              pattern: (identifier)
+              value: (otherwise_expression
+                value: (method_call_expression
+                  object: (identifier)
+                  method: (identifier)
+                  arguments: (argument_list))
+                action: (otherwise_action)))))))))
+
+==================
+Otherwise continue
+==================
+
+func main() {
+    for item in items {
+        let val = item.parse() otherwise continue
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (expression_statement
+        (for_expression
+          pattern: (identifier)
+          iterable: (identifier)
+          body: (block
+            (let_statement
+              pattern: (identifier)
+              value: (otherwise_expression
+                value: (method_call_expression
+                  object: (identifier)
+                  method: (identifier)
+                  arguments: (argument_list))
+                action: (otherwise_action)))))))))
+
+==================
+Otherwise default
+==================
+
+func main() {
+    let val = lookup(key) otherwise 0
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (otherwise_expression
+          value: (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (identifier))))
+          action: (otherwise_action
+            (integer_literal)))))))
+
+==================
+Otherwise return
+==================
+
+func main() {
+    let val = lookup(key) otherwise return
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (otherwise_expression
+          value: (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (identifier))))
+          action: (otherwise_action))))))
+
+==================
+Otherwise error
+==================
+
+func main() {
+    let val = parse(x) otherwise error AppError{ msg: "failed" }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (let_statement
+        pattern: (identifier)
+        value: (otherwise_expression
+          value: (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (identifier))))
+          action: (otherwise_action
+            (struct_literal
+              type: (type_identifier)
+              (struct_field_init
+                name: (identifier)
+                value: (string_literal
+                  (string_content))))))))))
+
+==================
 String with braces
 ==================
 
