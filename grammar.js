@@ -497,8 +497,9 @@ module.exports = grammar({
       '}',
     )),
 
-    // Type path for struct literals: `Name` or `Name.Variant`
+    // Type path for struct literals: `Name`, `Name[T, U]`, or `Name.Variant`
     _struct_type_path: $ => choice(
+      field('type', $.generic_type),
       field('type', $.type_identifier),
       seq(field('type', $.type_identifier), '.', field('variant', $.type_identifier)),
     ),

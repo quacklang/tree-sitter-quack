@@ -2962,6 +2962,14 @@
           "name": "type",
           "content": {
             "type": "SYMBOL",
+            "name": "generic_type"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
             "name": "type_identifier"
           }
         },
