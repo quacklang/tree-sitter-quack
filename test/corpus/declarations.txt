@@ -58,7 +58,7 @@ func main() {
 Function with parameters and return type
 ==================
 
-func add(a: Int, b: Int) -> Int {
+func add(a: Int, b: Int) Int {
     return a
 }
 
@@ -85,7 +85,7 @@ func add(a: Int, b: Int) -> Int {
 Public function with union return
 ==================
 
-public func get(id: String) -> User | None {
+public func get(id: String) User or None {
 }
 
 ---
@@ -240,7 +240,7 @@ Interface declaration
 ==================
 
 interface Serializable {
-    func serialize(self) -> String
+    func serialize(self) String
 }
 
 ---
@@ -259,7 +259,7 @@ interface Serializable {
 On block with methods
 ==================
 
-on Parser {
+for Parser {
     func advance(mut self) {
     }
 }
@@ -267,7 +267,7 @@ on Parser {
 ---
 
 (source_file
-  (on_declaration
+  (for_declaration
     type: (type_identifier)
     (method_declaration
       name: (identifier)
@@ -280,15 +280,15 @@ on Parser {
 On block implementing interface
 ==================
 
-on Point implement Display {
-    func display(self) -> String {
+for Point implement Display {
+    func display(self) String {
     }
 }
 
 ---
 
 (source_file
-  (on_declaration
+  (for_declaration
     type: (type_identifier)
     interface: (type_identifier)
     (method_declaration
@@ -304,8 +304,8 @@ Extern block
 ==================
 
 extern "C" {
-    func sqlite3_open(filename: *const u8, db: *mut *mut RawDb) -> i32
-    func sqlite3_close(db: *mut RawDb) -> i32
+    func sqlite3_open(filename: *const u8, db: *mut *mut RawDb) i32
+    func sqlite3_close(db: *mut RawDb) i32
 }
 
 ---
@@ -368,7 +368,7 @@ type UserId = i64
 Generic type alias
 ==================
 
-type Result[T] = T | AppError
+type Result[T] = T or AppError
 
 ---
 
@@ -386,7 +386,7 @@ type Result[T] = T | AppError
 Public type alias
 ==================
 
-public type Handler = func(Request) -> Response
+public type Handler = func(Request) Response
 
 ---
 

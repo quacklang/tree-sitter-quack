@@ -12,15 +12,15 @@
         "named": true
       },
       {
+        "type": "for_declaration",
+        "named": true
+      },
+      {
         "type": "function_declaration",
         "named": true
       },
       {
         "type": "interface_declaration",
-        "named": true
-      },
-      {
-        "type": "on_declaration",
         "named": true
       },
       {
@@ -1030,6 +1030,50 @@
     }
   },
   {
+    "type": "for_declaration",
+    "named": true,
+    "fields": {
+      "interface": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_type",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "generic_params",
+          "named": true
+        },
+        {
+          "type": "method_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "for_expression",
     "named": true,
     "fields": {
@@ -1605,46 +1649,6 @@
       "types": [
         {
           "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "on_declaration",
-    "named": true,
-    "fields": {
-      "interface": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_type",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "generic_params",
-          "named": true
-        },
-        {
-          "type": "method_declaration",
           "named": true
         }
       ]
@@ -2537,10 +2541,6 @@
     "named": false
   },
   {
-    "type": "->",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -2574,10 +2574,6 @@
   },
   {
     "type": "==",
-    "named": false
-  },
-  {
-    "type": "=>",
     "named": false
   },
   {
@@ -2773,10 +2769,6 @@
     "named": false
   },
   {
-    "type": "on",
-    "named": false
-  },
-  {
     "type": "or",
     "named": false
   },
@@ -2834,6 +2826,10 @@
   },
   {
     "type": "test",
+    "named": false
+  },
+  {
+    "type": "then",
     "named": false
   },
   {

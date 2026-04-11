@@ -231,8 +231,8 @@ Match expression
 
 func main() {
     match result {
-        v: Value => println("ok"),
-        e: ParseError => println("error"),
+        v: Value then println("ok"),
+        e: ParseError then println("error"),
     }
 }
 
@@ -273,9 +273,9 @@ Match with enum patterns
 
 func main() {
     match color {
-        Color.Red => print("red"),
-        Color.Green => print("green"),
-        _ => print("other"),
+        Color.Red then print("red"),
+        Color.Green then print("green"),
+        _ then print("other"),
     }
 }
 
@@ -322,7 +322,7 @@ func main() {
 Return and error expressions
 ==================
 
-func check(x: Int) -> Int | ParseError {
+func check(x: Int) Int or ParseError {
     if x < 0 {
         error ParseError.UnexpectedEof
     }

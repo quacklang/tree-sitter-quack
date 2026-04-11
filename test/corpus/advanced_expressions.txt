@@ -53,7 +53,7 @@ Closure expression
 ==================
 
 func main() {
-    let f = func(x: Int) -> Int {
+    let f = func(x: Int) Int {
         return x
     }
 }

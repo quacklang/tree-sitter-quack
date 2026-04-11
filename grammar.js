@@ -75,7 +75,7 @@ module.exports = grammar({
       $.struct_declaration,
       $.enum_declaration,
       $.interface_declaration,
-      $.on_declaration,
+      $.for_declaration,
       $.extern_block,
       $.test_declaration,
       $.type_alias_declaration,
@@ -101,7 +101,7 @@ module.exports = grammar({
       field('name', $.identifier),
       optional($.generic_params),
       field('parameters', $.parameter_list),
-      optional(seq('->', field('return_type', $._type))),
+      optional(field('return_type', $._type)),
       field('body', $.block),
     ),
 
@@ -207,18 +207,18 @@ module.exports = grammar({
       ),
     ),
 
-    interface_method: $ => seq(
+    interface_method: $ => prec.right(seq(
       'func',
       field('name', $.identifier),
       optional($.generic_params),
       field('parameters', $.parameter_list),
-      optional(seq('->', field('return_type', $._type))),
-    ),
+      optional(field('return_type', $._type)),
+    )),
 
-    on_declaration: $ => seq(
-      'on',
+    for_declaration: $ => seq(
+      'for',
       optional($.generic_params),
-      field('type', $._type),
+      field('type', choice($.type_identifier, $.generic_type)),
       optional(seq('implement', field('interface', $.type_identifier))),
       '{',
       repeat($.method_declaration),
@@ -231,7 +231,7 @@ module.exports = grammar({
       field('name', $.identifier),
       optional($.generic_params),
       field('parameters', $.parameter_list),
-      optional(seq('->', field('return_type', $._type))),
+      optional(field('return_type', $._type)),
       field('body', $.block),
     ),
 
@@ -243,12 +243,12 @@ module.exports = grammar({
       '}',
     ),
 
-    extern_function: $ => seq(
+    extern_function: $ => prec.right(seq(
       'func',
       field('name', $.identifier),
       field('parameters', $.parameter_list),
-      optional(seq('->', field('return_type', $._type))),
-    ),
+      optional(field('return_type', $._type)),
+    )),
 
     test_declaration: $ => seq(
       'test',
@@ -384,7 +384,7 @@ module.exports = grammar({
     match_arm: $ => seq(
       field('pattern', $._pattern),
       optional(seq('if', field('guard', $._expression))),
-      '=>',
+      'then',
       field('value', $._expression),
     ),
 
@@ -511,7 +511,7 @@ module.exports = grammar({
     closure_expression: $ => seq(
       'func',
       field('parameters', $.parameter_list),
-      optional(seq('->', field('return_type', $._type))),
+      optional(field('return_type', $._type)),
       field('body', $.block),
     ),
 
@@ -568,7 +568,7 @@ module.exports = grammar({
         field('name', $.identifier),
         'from',
         field('source', $._expression),
-        '=>',
+        'then',
         field('body', $._expression),
       ),
       seq(
@@ -576,12 +576,12 @@ module.exports = grammar({
         '(',
         field('duration', $._expression),
         ')',
-        '=>',
+        'then',
         field('body', $._expression),
       ),
       seq(
         'otherwise',
-        '=>',
+        'then',
         field('body', $._expression),
       ),
     ),
@@ -644,19 +644,19 @@ module.exports = grammar({
       ']',
     )),
 
-    union_type: $ => prec.left(PREC.BITWISE_OR, seq(
+    union_type: $ => prec.left(PREC.OR, seq(
       $._type,
-      '|',
+      'or',
       $._type,
     )),
 
-    function_type: $ => seq(
+    function_type: $ => prec.right(seq(
       'func',
       '(',
       commaSep($._type),
       ')',
-      optional(seq('->', $._type)),
-    ),
+      optional($._type),
+    )),
 
     unit_type: $ => seq('(', ')'),
 

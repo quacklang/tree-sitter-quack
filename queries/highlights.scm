@@ -5,7 +5,7 @@
   "enum"
   "interface"
   "type"
-  "on"
+  "then"
   "implement"
   "let"
   "var"
@@ -216,8 +216,6 @@
   ","
   ":"
   "."
-  "->"
-  "=>"
 ] @punctuation.delimiter
 
 ; Wildcard

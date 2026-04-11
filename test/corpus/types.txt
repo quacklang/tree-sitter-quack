@@ -2,7 +2,7 @@
 Simple type
 ==================
 
-func id(x: String) -> String {
+func id(x: String) String {
 }
 
 ---
@@ -21,7 +21,7 @@ func id(x: String) -> String {
 Generic type
 ==================
 
-func first(items: Vec[Int]) -> Int {
+func first(items: Vec[Int]) Int {
 }
 
 ---
@@ -42,7 +42,7 @@ func first(items: Vec[Int]) -> Int {
 Multi-param generic
 ==================
 
-func get(map: HashMap[String, Int]) -> Int {
+func get(map: HashMap[String, Int]) Int {
 }
 
 ---
@@ -64,7 +64,7 @@ func get(map: HashMap[String, Int]) -> Int {
 Union type
 ==================
 
-func find(id: String) -> User | None {
+func find(id: String) User or None {
 }
 
 ---
@@ -85,7 +85,7 @@ func find(id: String) -> User | None {
 Multi-union type
 ==================
 
-func parse() -> Value | ParseError | IOError {
+func parse() Value or ParseError or IOError {
 }
 
 ---
@@ -106,7 +106,7 @@ Pointer types
 ==================
 
 extern "C" {
-    func open(path: *const u8, db: *mut RawDb) -> i32
+    func open(path: *const u8, db: *mut RawDb) i32
 }
 
 ---
@@ -132,7 +132,7 @@ extern "C" {
 Unit type
 ==================
 
-func noop() -> () {
+func noop() () {
 }
 
 ---
@@ -174,7 +174,7 @@ Self type
 ==================
 
 interface Eq {
-    func equals(self, other: Self) -> Bool
+    func equals(self, other: Self) Bool
 }
 
 ---
