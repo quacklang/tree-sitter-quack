@@ -15,7 +15,7 @@ const PREC = {
   ADDITIVE: 9,       // + -
   MULTIPLICATIVE: 10, // * / %
   UNARY: 11,         // - not ~
-  POSTFIX: 12,       // . () [] ? as is
+  POSTFIX: 12,       // . () [] as is
 };
 
 function commaSep(rule) {
@@ -329,7 +329,6 @@ module.exports = grammar({
       $.method_call_expression,
       $.field_expression,
       $.index_expression,
-      $.error_propagation,
       $.type_cast,
       $.is_expression,
       $.struct_literal,
@@ -477,11 +476,6 @@ module.exports = grammar({
       '[',
       field('index', $._expression),
       ']',
-    )),
-
-    error_propagation: $ => prec(PREC.POSTFIX, seq(
-      $._expression,
-      '?',
     )),
 
     type_cast: $ => prec(PREC.POSTFIX, seq(

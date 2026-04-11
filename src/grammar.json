@@ -1633,10 +1633,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "error_propagation"
-        },
-        {
-          "type": "SYMBOL",
           "name": "type_cast"
         },
         {
@@ -2870,23 +2866,6 @@
           {
             "type": "STRING",
             "value": "]"
-          }
-        ]
-      }
-    },
-    "error_propagation": {
-      "type": "PREC",
-      "value": 12,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_expression"
-          },
-          {
-            "type": "STRING",
-            "value": "?"
           }
         ]
       }

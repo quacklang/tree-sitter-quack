@@ -110,10 +110,6 @@
         "named": true
       },
       {
-        "type": "error_propagation",
-        "named": true
-      },
-      {
         "type": "field_expression",
         "named": true
       },
@@ -825,21 +821,6 @@
   },
   {
     "type": "error_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "error_propagation",
     "named": true,
     "fields": {},
     "children": {
@@ -2609,10 +2590,6 @@
   },
   {
     "type": ">>",
-    "named": false
-  },
-  {
-    "type": "?",
     "named": false
   },
   {

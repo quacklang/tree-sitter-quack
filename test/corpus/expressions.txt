@@ -253,30 +253,6 @@ func main() {
           field: (identifier))))))
 
 ==================
-Error propagation
-==================
-
-func main() {
-    let v = parse_value(mut parser)?
-}
-
----
-
-(source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (block
-      (let_statement
-        pattern: (identifier)
-        value: (error_propagation
-          (call_expression
-            function: (identifier)
-            arguments: (argument_list
-              (argument
-                (identifier)))))))))
-
-==================
 Struct literal
 ==================
 
