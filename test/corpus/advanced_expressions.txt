@@ -154,11 +154,11 @@ func main() {
                       (string_content))))))))))))
 
 ==================
-Otherwise pass up
+Otherwise pass back
 ==================
 
 func main() {
-    let val = try_parse(input) otherwise pass up
+    let val = try_parse(input) otherwise pass back
 }
 
 ---

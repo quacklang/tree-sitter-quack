@@ -600,7 +600,7 @@ module.exports = grammar({
     )),
 
     otherwise_action: $ => choice(
-      prec(PREC.POSTFIX + 1, seq('pass', 'up')),
+      prec(PREC.POSTFIX + 1, seq('pass', 'back')),
       prec(PREC.POSTFIX + 1, 'break'),
       prec(PREC.POSTFIX + 1, 'continue'),
       prec.left(PREC.POSTFIX + 1, seq('return', optional($._expression))),
