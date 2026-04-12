@@ -19,8 +19,6 @@
   "error"
   "break"
   "defer"
-  "use"
-  "package"
   "test"
   "unsafe"
   "extern"
@@ -48,7 +46,7 @@
 ; Visibility modifiers
 [
   "public"
-  "package"
+  "internal"
 ] @keyword.modifier
 
 ; Control flow keywords

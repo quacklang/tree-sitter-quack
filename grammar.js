@@ -69,8 +69,6 @@ module.exports = grammar({
     // =========================================================================
 
     _declaration: $ => choice(
-      $.package_declaration,
-      $.use_declaration,
       $.function_declaration,
       $.struct_declaration,
       $.enum_declaration,
@@ -80,19 +78,6 @@ module.exports = grammar({
       $.test_declaration,
       $.type_alias_declaration,
       $.top_level_let,
-    ),
-
-    package_declaration: $ => seq('package', $.identifier),
-
-    use_declaration: $ => seq(
-      'use',
-      $.module_path,
-      optional(seq('as', field('alias', $.identifier))),
-    ),
-
-    module_path: $ => seq(
-      $.identifier,
-      repeat(seq('.', $.identifier)),
     ),
 
     function_declaration: $ => seq(
@@ -105,7 +90,7 @@ module.exports = grammar({
       field('body', $.block),
     ),
 
-    _visibility: $ => choice('public', 'package'),
+    _visibility: $ => choice('public', 'internal'),
 
     generic_params: $ => seq(
       '[',

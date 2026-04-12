@@ -1,45 +1,4 @@
 ==================
-Package declaration
-==================
-
-package myapp
-
----
-
-(source_file
-  (package_declaration
-    (identifier)))
-
-==================
-Use declaration
-==================
-
-use std.io
-
----
-
-(source_file
-  (use_declaration
-    (module_path
-      (identifier)
-      (identifier))))
-
-==================
-Use with alias
-==================
-
-use std.collections as col
-
----
-
-(source_file
-  (use_declaration
-    (module_path
-      (identifier)
-      (identifier))
-    alias: (identifier)))
-
-==================
 Simple function
 ==================
 
