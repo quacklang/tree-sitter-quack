@@ -4,6 +4,14 @@
     "named": true,
     "subtypes": [
       {
+        "type": "allow_block",
+        "named": true
+      },
+      {
+        "type": "deny_block",
+        "named": true
+      },
+      {
         "type": "enum_declaration",
         "named": true
       },
@@ -24,10 +32,6 @@
         "named": true
       },
       {
-        "type": "package_declaration",
-        "named": true
-      },
-      {
         "type": "struct_declaration",
         "named": true
       },
@@ -42,10 +46,6 @@
       {
         "type": "type_alias_declaration",
         "named": true
-      },
-      {
-        "type": "use_declaration",
-        "named": true
       }
     ]
   },
@@ -53,6 +53,10 @@
     "type": "_expression",
     "named": true,
     "subtypes": [
+      {
+        "type": "allow_expression",
+        "named": true
+      },
       {
         "type": "array_literal",
         "named": true
@@ -99,6 +103,10 @@
       },
       {
         "type": "defer_expression",
+        "named": true
+      },
+      {
+        "type": "deny_expression",
         "named": true
       },
       {
@@ -322,6 +330,58 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "allow_block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "warning_code",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "allow_expression",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "warning_code",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "argument",
@@ -692,6 +752,58 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "deny_block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "warning_code",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "deny_expression",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "warning_code",
           "named": true
         }
       ]
@@ -1640,21 +1752,6 @@
     }
   },
   {
-    "type": "module_path",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "or_pattern",
     "named": true,
     "fields": {},
@@ -1708,21 +1805,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "package_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2331,32 +2413,6 @@
     }
   },
   {
-    "type": "use_declaration",
-    "named": true,
-    "fields": {
-      "alias": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "module_path",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "var_statement",
     "named": true,
     "fields": {
@@ -2609,11 +2665,19 @@
     "named": false
   },
   {
+    "type": "allow",
+    "named": false
+  },
+  {
     "type": "and",
     "named": false
   },
   {
     "type": "as",
+    "named": false
+  },
+  {
+    "type": "back",
     "named": false
   },
   {
@@ -2634,6 +2698,10 @@
   },
   {
     "type": "defer",
+    "named": false
+  },
+  {
+    "type": "deny",
     "named": false
   },
   {
@@ -2741,6 +2809,10 @@
     "named": false
   },
   {
+    "type": "internal",
+    "named": false
+  },
+  {
     "type": "is",
     "named": false
   },
@@ -2778,10 +2850,6 @@
   },
   {
     "type": "otherwise",
-    "named": false
-  },
-  {
-    "type": "package",
     "named": false
   },
   {
@@ -2877,20 +2945,16 @@
     "named": false
   },
   {
-    "type": "up",
-    "named": false
-  },
-  {
-    "type": "use",
-    "named": false
-  },
-  {
     "type": "usize",
     "named": false
   },
   {
     "type": "var",
     "named": false
+  },
+  {
+    "type": "warning_code",
+    "named": true
   },
   {
     "type": "when",

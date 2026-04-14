@@ -78,6 +78,8 @@ module.exports = grammar({
       $.test_declaration,
       $.type_alias_declaration,
       $.top_level_let,
+      $.allow_block,
+      $.deny_block,
     ),
 
     function_declaration: $ => seq(
@@ -325,6 +327,8 @@ module.exports = grammar({
       $.parallel_expression,
       $.detach_expression,
       $.unsafe_expression,
+      $.allow_expression,
+      $.deny_expression,
       $.when_expression,
       $.assignment_expression,
       $.otherwise_expression,
@@ -453,7 +457,9 @@ module.exports = grammar({
     field_expression: $ => prec(PREC.POSTFIX, seq(
       field('object', $._expression),
       '.',
-      field('field', choice($.identifier, $.type_identifier)),
+      // `type` is a keyword but valid as a field name (RFC-002 §11.8.1: Field.type).
+      // `take` is a keyword but valid as a method name (pipeline .take()).
+      field('field', choice($.identifier, $.type_identifier, alias('type', $.identifier), alias('take', $.identifier))),
     )),
 
     index_expression: $ => prec(PREC.POSTFIX, seq(
@@ -540,6 +546,28 @@ module.exports = grammar({
     detach_expression: $ => seq('detach', field('body', $.block)),
 
     unsafe_expression: $ => seq('unsafe', field('body', $.block)),
+
+    warning_code: $ => /W-[A-Z]+-\d{2}/,
+
+    allow_block: $ => prec(1, seq(
+      'allow', '(', commaSep1($.warning_code), ')',
+      field('body', $.block),
+    )),
+
+    deny_block: $ => prec(1, seq(
+      'deny', '(', commaSep1($.warning_code), ')',
+      field('body', $.block),
+    )),
+
+    allow_expression: $ => seq(
+      'allow', '(', commaSep1($.warning_code), ')',
+      field('body', $.block),
+    ),
+
+    deny_expression: $ => seq(
+      'deny', '(', commaSep1($.warning_code), ')',
+      field('body', $.block),
+    ),
 
     when_expression: $ => seq(
       'when',
